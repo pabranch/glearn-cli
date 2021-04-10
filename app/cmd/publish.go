@@ -79,7 +79,7 @@ new block. If the block already exists, it will update the existing block.
 			os.Exit(1)
 		}
 
-		if IgnoreLocal == false {
+		if !IgnoreLocal {
 			notCurrentWithRemote := notCurrentWithRemote(branch)
 			if notCurrentWithRemote {
 				fmt.Println("\nRelease failed.")
