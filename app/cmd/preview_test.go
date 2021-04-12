@@ -37,10 +37,6 @@ Question
 ### !end-challenge
 `
 
-const dockerIgnore = `ignore_me.jpg
-*.txt
-`
-
 func Test_createNewTarget(t *testing.T) {
 	result, err := createNewTarget("../../fixtures/test-links/nested/test.md", []string{"./mrsmall-invert.png", "../mrsmall.png", "../image/nested-small.png", "deeper/deep-small.png"}, []string{})
 	if err != nil {

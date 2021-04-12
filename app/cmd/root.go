@@ -51,28 +51,6 @@ Learn more and build new curriculum:
 	},
 }
 
-var fileExtWhitelist = map[string]struct{}{
-	".yaml":  {},
-	".yml":   {},
-	".md":    {},
-	".pdf":   {},
-	".ipynb": {},
-	".jpg":   {},
-	".jpeg":  {},
-	".jpe":   {},
-	".jif":   {},
-	".jfif":  {},
-	".jfi":   {},
-	".png":   {},
-	".gif":   {},
-	".tiff":  {},
-	".tif":   {},
-	".bmp":   {},
-	".svg":   {},
-	".svgz":  {},
-	".sql":   {},
-}
-
 // APIToken is an initialized string used for holding it's flag value
 var APIToken string
 
