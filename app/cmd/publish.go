@@ -93,7 +93,7 @@ new block. If the block already exists, it will update the existing block.
 		path, _ := os.Getwd()
 		createdConfig, err := publishFindOrCreateConfigDir(path + "/")
 		if err != nil {
-			fmt.Printf(fmt.Sprintf("Failed to find or create a config file for repo: (%s). Err: %v", branch, err))
+			fmt.Printf(fmt.Sprintf("failed to find or create a config file for repo: (%s). Err: %v", branch, err))
 			os.Exit(1)
 		}
 		fmt.Printf("Publishing block with repo name %s\n", repoPieces.RepoName)
@@ -189,7 +189,7 @@ func remotePieces() (learn.RepoPieces, error) {
 	}
 	parts := strings.Split(s, ".git")
 	if len(parts) < 1 { // There should only be 1
-		return repoPieces, fmt.Errorf("Error parsing git remote from %s", s)
+		return repoPieces, fmt.Errorf("error parsing git remote from %s", s)
 	}
 	parts = strings.Split(parts[0], "/")
 

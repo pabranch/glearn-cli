@@ -57,7 +57,7 @@ var markdownCmd = &cobra.Command{
 func getTemp(command string) (temp, error) {
 	t, ok := templates[command]
 	if !ok {
-		return temp{}, fmt.Errorf("Unknown arg '%s'. Run 'learn md --help' for options.\n", command)
+		return temp{}, fmt.Errorf("unknown arg '%s'. Run 'learn md --help' for options", command)
 	}
 	return t, nil
 }
@@ -103,32 +103,32 @@ func (t temp) appendContent(target string) error {
 		template = t.MinTemplate
 	}
 	if !strings.HasSuffix(target, ".md") {
-		return fmt.Errorf("'%s' must have an `.md` extension to append %s content.\n", target, t.Name)
+		return fmt.Errorf("'%s' must have an `.md` extension to append %s content", target, t.Name)
 	}
 
 	targetInfo, err := os.Stat(target)
 	if err != nil {
-		return fmt.Errorf("'%s' is not a file that can be appended!\n%s\n", target, err)
+		return fmt.Errorf("'%s' is not a file that can be appended!\n%s", target, err)
 	}
 	if targetInfo.IsDir() {
-		return fmt.Errorf("'%s' is a directory, please specify a markdown file.\n", target)
+		return fmt.Errorf("'%s' is a directory, please specify a markdown file", target)
 	}
 
 	f, err := os.OpenFile(target, os.O_APPEND|os.O_WRONLY, 0600)
 	if err != nil {
-		return fmt.Errorf("Cannot open '%s'!\n%s\n", target, err)
+		return fmt.Errorf("cannot open '%s'!\n%s", target, err)
 	}
 	defer f.Close()
 
 	if t.RequireId {
 		id := uuid.New().String()
 		if _, err = f.WriteString(fmt.Sprintf(strings.ReplaceAll(template, `~~~`, "```"), id) + "\n"); err != nil {
-			return fmt.Errorf("Cannot write to '%s'!\n%s\n", target, err)
+			return fmt.Errorf("cannot write to '%s'!\n%s", target, err)
 		}
 		fmt.Printf("%s appended to %s!\nid: %s\n", t.Name, target, id)
 	} else {
 		if _, err = f.WriteString(template + "\n"); err != nil {
-			return fmt.Errorf("Cannot write to '%s'!\n%s\n", target, err)
+			return fmt.Errorf("cannot write to '%s'!\n%s", target, err)
 		}
 		fmt.Printf("%s appended to %s!\n", t.Name, target)
 	}

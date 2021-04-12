@@ -200,7 +200,7 @@ func newConfigYaml(target, blockRoot, requestedUnitsDir string, excludePaths []s
 		return config, err
 	}
 	if len(unitToContentFileMap) == 0 {
-		return config, fmt.Errorf("No content found at '%s'. Preview of an individual unit is not supported, make sure '%s' is the root of a repo or a single lesson.", target, target)
+		return config, fmt.Errorf("no content found at '%s'. Preview of an individual unit is not supported, make sure '%s' is the root of a repo or a single lesson", target, target)
 	}
 
 	// sort unit keys in lexigraphical order
@@ -368,7 +368,7 @@ func parseConfigAndGatherLinkedPaths(target string) ([]string, error) {
 		for _, cf := range std.ContentFiles {
 			contents, err := ioutil.ReadFile(target + cf.Path)
 			if err != nil {
-				return []string{}, fmt.Errorf("Failure to read file '%s'. Err: %s", string(contents), err)
+				return []string{}, fmt.Errorf("failure to read file '%s'. Err: %s", string(contents), err)
 			}
 
 			m := mdresourceparser.New([]rune(string(contents)))
@@ -417,7 +417,7 @@ func findConfig(target string) (string, error) {
 			_, yamlExists = os.Stat(configPath)
 
 			if yamlExists != nil {
-				return "", fmt.Errorf("Could not find config or autoconfig yaml")
+				return "", fmt.Errorf("could not find config or autoconfig yaml")
 			}
 		}
 	}
@@ -451,7 +451,7 @@ func readContentFileAttrs(path, readPath string) (contentFile ContentFileAttrs, 
 		}
 		err = yaml.Unmarshal([]byte(yamlText), &contentFile)
 		if err != nil {
-			return contentFile, fmt.Errorf("Error parsing yaml header for '%s': %s\n'", path, err)
+			return contentFile, fmt.Errorf("error parsing yaml header for '%s': %s", path, err)
 		}
 		contentFile.Path = path
 		contentFile.fromHeader = true
@@ -466,7 +466,7 @@ func printExtras(yamlText, path string) error {
 	attributes := map[string]interface{}{}
 	err := yaml.Unmarshal([]byte(yamlText), &attributes)
 	if err != nil {
-		return fmt.Errorf("yaml header for '%s' is not valid:\n%s\n", path, err)
+		return fmt.Errorf("yaml header for '%s' is not valid:\n%s", path, err)
 	}
 	for key, _ := range attributes {
 		acceptableKey := false

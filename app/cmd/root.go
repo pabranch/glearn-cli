@@ -41,7 +41,7 @@ Learn more and build new curriculum:
   walkthrough at https://galvanize-learn.zendesk.com/hc/en-us/articles/1500000930401-Introduction`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
-			return errors.New("Requires at least 1 argument")
+			return errors.New("requires at least 1 argument")
 		}
 
 		return nil

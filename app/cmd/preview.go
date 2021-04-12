@@ -404,7 +404,7 @@ func createNewTarget(target string, singleFilePaths, dockerPaths []string) (stri
 			// open contents of new target
 			b, err := ioutil.ReadFile(newTarget)
 			if err != nil {
-				return "", fmt.Errorf("Could not read copied target file: %s", err)
+				return "", fmt.Errorf("could not read copied target file: %s", err)
 			}
 			contents := string(b)
 			for _, pathToSub := range substringPaths {
@@ -417,7 +417,7 @@ func createNewTarget(target string, singleFilePaths, dockerPaths []string) (stri
 			// overwrite target file with the contents
 			err = ioutil.WriteFile(newTarget, []byte(contents), 0777)
 			if err != nil {
-				return "", fmt.Errorf("Could not write copied target file with cleaned up links: %s", err)
+				return "", fmt.Errorf("could not write copied target file with cleaned up links: %s", err)
 			}
 		}
 		return newSrcPath, nil
@@ -446,7 +446,7 @@ func printlnGreen(text string) {
 func collectResourcePaths(target string) ([]string, []string, error) {
 	contents, err := ioutil.ReadFile(target)
 	if err != nil {
-		return []string{}, []string{}, fmt.Errorf("Failure to read file '%s'. Err: %s", string(contents), err)
+		return []string{}, []string{}, fmt.Errorf("failure to read file '%s'. Err: %s", string(contents), err)
 	}
 
 	m := mdresourceparser.New([]rune(string(contents)))
@@ -468,14 +468,14 @@ func collectResourcePaths(target string) ([]string, []string, error) {
 func collectDataPaths(target string) ([]string, error) {
 	contents, err := ioutil.ReadFile(target)
 	if err != nil {
-		return []string{}, fmt.Errorf("Failure to read file '%s'. Err: %s", string(contents), err)
+		return []string{}, fmt.Errorf("failure to read file '%s'. Err: %s", string(contents), err)
 	}
 
 	if strings.Contains(string(contents), "* data_path: ") {
 		file, err := os.Open(target)
 		defer file.Close()
 		if err != nil {
-			return []string{}, fmt.Errorf("Failure to read file '%s'. Err: %s", string(contents), err)
+			return []string{}, fmt.Errorf("failure to read file '%s'. Err: %s", string(contents), err)
 		}
 
 		dataPathsMap := map[string]string{}
@@ -527,7 +527,7 @@ func uploadToS3(file *os.File, checksum string, creds *learn.Credentials) (strin
 	// Obtain FileInfo so we can look at length in bytes
 	fileStats, err := file.Stat()
 	if err != nil {
-		return "", fmt.Errorf("Could not obtain file stats for %s", file.Name())
+		return "", fmt.Errorf("could not obtain file stats for %s", file.Name())
 	}
 
 	// Create and start a new progress bar with a fixed width
@@ -545,7 +545,7 @@ func uploadToS3(file *os.File, checksum string, creds *learn.Credentials) (strin
 		Body:   pr, // As our file is read and uploaded, our proxy reader will update/render the progress bar
 	})
 	if err != nil {
-		return "", fmt.Errorf("Error uploading assets to s3: %v", err)
+		return "", fmt.Errorf("error uploading assets to s3: %v", err)
 	}
 
 	bar.Finish()
@@ -627,7 +627,7 @@ func DockerIgnorePatterns(src string) ([]string, error) {
 	}
 	ignoreFile, err := ioutil.ReadFile(dockerIgnore)
 	if err != nil {
-		return []string{}, fmt.Errorf("Could not parse dockerignore file: %s", err)
+		return []string{}, fmt.Errorf("could not parse dockerignore file: %s", err)
 	}
 
 	return strings.Split(string(ignoreFile), "\n"), nil
@@ -639,7 +639,7 @@ func CopyDirectoryContents(src, dst string) error {
 		return err
 	}
 	if !srcInfo.IsDir() {
-		return fmt.Errorf("path specified is not a directory: %s\n", src)
+		return fmt.Errorf("path specified is not a directory: %s", src)
 	}
 
 	ignorePatterns, err := DockerIgnorePatterns(src)
