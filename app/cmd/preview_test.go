@@ -85,16 +85,16 @@ func Test_createNewTarget(t *testing.T) {
 }
 
 func Test_createNewTargetSingleFileSQLWithImage(t *testing.T) {
-	err := createTestMD(testMDContent)
-	err = os.MkdirAll("image", os.FileMode(0777))
-	_, err = os.Create("image/nested-small.png")
+	createTestMD(testMDContent)
+	os.MkdirAll("image", os.FileMode(0777))
+	_, err := os.Create("image/nested-small.png")
 	if err != nil {
 		t.Errorf("Error generating test image: %s\n", err)
 	}
 
 	output := captureOutput(func() {
-		_, err := createNewTarget("test.md", []string{"/data/some.sql", "image/nested-small.png"}, []string{})
-		_, err = os.Stat(fmt.Sprintf("single-file-upload/%s", "data/some.sql"))
+		createNewTarget("test.md", []string{"/data/some.sql", "image/nested-small.png"}, []string{})
+		_, err := os.Stat(fmt.Sprintf("single-file-upload/%s", "data/some.sql"))
 		if err == nil {
 			t.Errorf("data/some.sql should have been copied over and it was not")
 		}
@@ -134,8 +134,8 @@ func Test_createNewTargetSingleFileThatIsSQL(t *testing.T) {
 		t.Errorf("Error creating test.md: %s\n", err)
 	}
 	output := captureOutput(func() {
-		_, err := createNewTarget("test.md", []string{"/data/some.sql"}, []string{})
-		_, err = os.Stat(fmt.Sprintf("single-file-upload/%s", "data/some.sql"))
+		createNewTarget("test.md", []string{"/data/some.sql"}, []string{})
+		_, err := os.Stat(fmt.Sprintf("single-file-upload/%s", "data/some.sql"))
 		if err == nil {
 			t.Errorf("data/some.sql should have been copied over and it was not")
 		}
@@ -152,10 +152,10 @@ func Test_createNewTargetSingleFileThatIsSQL(t *testing.T) {
 }
 
 func Test_createNewTargetSingleFile(t *testing.T) {
-	err := createTestMD(testMDContent)
-	err = os.MkdirAll("image", os.FileMode(0777))
-	_, err = os.Create("image/nested-small.png")
-	_, err = os.Create("../nested-small.png")
+	createTestMD(testMDContent)
+	os.MkdirAll("image", os.FileMode(0777))
+	os.Create("image/nested-small.png")
+	_, err := os.Create("../nested-small.png")
 	if err != nil {
 		t.Errorf("Error generating test fixtures: %s\n", err)
 	}
@@ -208,8 +208,8 @@ func Test_createNewTargetSingleFile(t *testing.T) {
 }
 
 func Test_createNewTarget_DockerDirectory(t *testing.T) {
-	err := createTestMD(dockerMDContent)
-	err = os.MkdirAll("path/to/dir/child", os.FileMode(0777))
+	createTestMD(dockerMDContent)
+	err := os.MkdirAll("path/to/dir/child", os.FileMode(0777))
 	if err != nil {
 		t.Errorf("Error generating test fixtures: %s\n", err)
 	}
@@ -291,8 +291,8 @@ func Test_createNewTarget_DockerDirectory(t *testing.T) {
 }
 
 func Test_createNewTarget_DockerDirectoryNestedMd(t *testing.T) {
-	err := createTestMD(dockerMDContent)
-	err = os.MkdirAll("../path/to/dir/child", os.FileMode(0777))
+	createTestMD(dockerMDContent)
+	err := os.MkdirAll("../path/to/dir/child", os.FileMode(0777))
 	if err != nil {
 		t.Errorf("Error generating test fixtures: %s\n", err)
 	}
@@ -349,8 +349,8 @@ func Test_createNewTarget_DockerDirectoryNestedMd(t *testing.T) {
 }
 
 func Test_createNewTarget_DockerDirectoryDoubleNestedMd(t *testing.T) {
-	err := createTestMD(dockerMDContent)
-	err = os.MkdirAll("../../path/to/dir/child", os.FileMode(0777))
+	createTestMD(dockerMDContent)
+	err := os.MkdirAll("../../path/to/dir/child", os.FileMode(0777))
 	if err != nil {
 		t.Errorf("Error generating test fixtures: %s\n", err)
 	}
