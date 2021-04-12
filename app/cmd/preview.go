@@ -473,10 +473,10 @@ func collectDataPaths(target string) ([]string, error) {
 
 	if strings.Contains(string(contents), "* data_path: ") {
 		file, err := os.Open(target)
-		defer file.Close()
 		if err != nil {
 			return []string{}, fmt.Errorf("failure to read file '%s'. Err: %s", string(contents), err)
 		}
+		defer file.Close()
 
 		dataPathsMap := map[string]string{}
 		scanner := bufio.NewScanner(file)
